@@ -1,0 +1,12 @@
+{
+    "you have an account ? ":"You have an account ? ",
+    "login":"Login",
+    "register":"Register",
+    "you dont't have an account ? ":"you dont't have an account ? ",
+    "password": "Password",
+    "username": "Username",
+    "email": "E-mail",
+    "phone":"Phone",
+    "location": "Location",
+    "search":"Search"
+}

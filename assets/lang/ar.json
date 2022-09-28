@@ -1,0 +1,12 @@
+{
+    "you have an account ? ":"لديك حساب ؟  ",
+    "login":"تسجيل الدخول",
+    "register":"تسجيل الدخول",
+    "you dont't have an account ? ":"ليس لديك حساب ؟ ",
+    "password": " كلمة المرور",
+    "username": "اسم المستخدم",
+    "email": " البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "location": " الموقع"
+    
+}
