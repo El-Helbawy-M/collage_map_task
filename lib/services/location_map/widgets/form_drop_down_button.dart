@@ -67,12 +67,14 @@ class _FormSelectorState extends State<FormSelector> {
                       if (widget.value != "") const SizedBox(height: 6),
                       Text(
                         widget.value == "" ? widget.label! : widget.value!,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: widget.value == ""
                               ? AppColors.hint
                               : AppColors.mainColor,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
+                          
                         ),
                       ),
                     ],
@@ -93,14 +95,19 @@ class _FormSelectorState extends State<FormSelector> {
                 child: ListView.builder(
                   controller: ScrollController(),
                   itemCount: widget.data.length,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(widget.data[index]),
-                    onTap: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                      widget.onTap(widget.data[index]);
-                    },
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      const Divider(height: 5),
+                      ListTile(
+                        title: Text(widget.data[index],style: AppTextStyles.w600.copyWith(fontSize: 12)),
+                        onTap: () {
+                          setState(() {
+                            isExpanded = !isExpanded;
+                          });
+                          widget.onTap(widget.data[index]);
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -1,4 +1,6 @@
 import 'package:collage_map_task/router/routes.dart';
+import 'package:collage_map_task/services/location_map/models/submition.dart';
+import 'package:collage_map_task/services/location_map/pages/result_page.dart';
 import 'package:flutter/material.dart';
 
 import '../services/location_map/pages/form_page.dart';
@@ -22,7 +24,17 @@ class CustomNavigator {
     switch (settings.name) {
       case Routes.map:
         return PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => FormPage(),
+          pageBuilder: (context, animation, secondaryAnimation) => const FormPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+      case Routes.mapResult:
+        return PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => ResultPage(model: settings.arguments as SubmitionModel),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: animation.drive(tween),
@@ -31,7 +43,7 @@ class CustomNavigator {
           },
         );
     }
-    return MaterialPageRoute(builder: (_) => FormPage());
+    return MaterialPageRoute(builder: (_) => const FormPage());
   }
 
   static pop({dynamic result}) {
