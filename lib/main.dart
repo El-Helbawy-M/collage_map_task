@@ -1,5 +1,6 @@
 import 'package:collage_map_task/router/navigator.dart';
 import 'package:collage_map_task/services/location_map/pages/form_page.dart';
+import 'package:collage_map_task/services/location_map/pages/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

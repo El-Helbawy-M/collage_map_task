@@ -1,6 +1,7 @@
 import 'package:collage_map_task/helpers/app_colores.dart';
 import 'package:collage_map_task/helpers/localization.dart';
 import 'package:collage_map_task/helpers/text_styles.dart';
+import 'package:collage_map_task/services/location_map/pages/result_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/custom_arrow_back.dart';
@@ -58,6 +59,7 @@ class _FormPageState extends State<FormPage> {
     "مكتب رئيس قسم علوم حاسب",
     ""
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,65 +76,73 @@ class _FormPageState extends State<FormPage> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               children: [
-                // Expanded(
-                //   child: SingleChildScrollView(
-                //     child: Column(
-                //       children: [
-                //         const SizedBox(height: 24),
-                //         Padding(
-                //           padding: const EdgeInsets.symmetric(vertical: 8.0),
-                //           child: FormSelector(
-                //             label: "The Floor",
-                //             value: floor,
-                //             onTap: (value) => setState(() => floor = value),
-                //             data: floors,
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.symmetric(vertical: 8.0),
-                //           child: FormSelector(
-                //             label: "The location you want to go",
-                //             value: placeType,
-                //             onTap: (value) => setState(() => placeType = value),
-                //             data: placeTypes,
-                //           ),
-                //         ),
-                //         if (placeType == "Stands")
-                //           Padding(
-                //             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                //             child: FormSelector(
-                //               label: "The location you want to go",
-                //               value: location,
-                //               onTap: (value) => setState(() => location = value),
-                //               data: stands,
-                //             ),
-                //           ),
-                //         if (placeType == "Labs")
-                //           Padding(
-                //             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                //             child: FormSelector(
-                //               label: "The location you want to go",
-                //               value: location,
-                //               onTap: (value) => setState(() => location = value),
-                //               data: labs,
-                //             ),
-                //           ),
-                //         if (placeType == "Offices")
-                //           Padding(
-                //             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                //             child: FormSelector(
-                //                 label: "The location you want to go",
-                //                 value: location,
-                //                 onTap: (value) =>
-                //                     setState(() => location = value),
-                //                 data: offices),
-                //           ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 24),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: FormSelector(
+                            label: "The Floor",
+                            value: floor,
+                            onTap: (value) => setState(() => floor = value),
+                            data: floors,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: FormSelector(
+                            label: "The location you want to go",
+                            value: placeType,
+                            onTap: (value) => setState(() => placeType = value),
+                            data: placeTypes,
+                          ),
+                        ),
+                        if (placeType == "Stands")
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: FormSelector(
+                              label: "The location you want to go",
+                              value: location,
+                              onTap: (value) =>
+                                  setState(() => location = value),
+                              data: stands,
+                            ),
+                          ),
+                        if (placeType == "Labs")
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: FormSelector(
+                              label: "The location you want to go",
+                              value: location,
+                              onTap: (value) =>
+                                  setState(() => location = value),
+                              data: labs,
+                            ),
+                          ),
+                        if (placeType == "Offices")
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: FormSelector(
+                                label: "The location you want to go",
+                                value: location,
+                                onTap: (value) =>
+                                    setState(() => location = value),
+                                data: offices),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
                 GestureDetector(
-                  onTap:(){},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: ((context) => ResultPage(
+                            floor: floor,
+                            location: location,
+                            placeType: placeType))));
+                  },
                   child: Container(
                     height: 50,
                     margin: const EdgeInsets.all(24),
@@ -144,7 +154,9 @@ class _FormPageState extends State<FormPage> {
                       //     : Border.all(width: 1, color: Styles.PRIMARY_COLOR),
                     ),
                     child: Center(
-                      child: Text(getLang("search"),style: AppTextStyles.w600.copyWith(fontSize: 14,color: Colors.white)),
+                      child: Text(getLang("search"),
+                          style: AppTextStyles.w600
+                              .copyWith(fontSize: 14, color: Colors.white)),
                     ),
                   ),
                 ),
