@@ -126,7 +126,8 @@ class _FormPageState extends State<FormPage> {
                       await CustomNavigator.push(Routes.mapResult,
                           arguments: model);
                       setState(() {});
-                    } else {
+                      print('aliaa');
+                    } else if(!_validate){
                       showSnackBar(
                         notification: AppNotification(
                             radius: 5,
@@ -135,6 +136,7 @@ class _FormPageState extends State<FormPage> {
                             backgroundColor: AppColors.warning),
                       );
                     }
+                    else{print('error');}
                   },
                   child: Container(
                     height: 50,
