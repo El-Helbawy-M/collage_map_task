@@ -6,6 +6,7 @@ import 'package:collage_map_task/router/navigator.dart';
 import 'package:collage_map_task/router/routes.dart';
 import 'package:collage_map_task/services/location_map/core/dataExtractor.dart';
 import 'package:collage_map_task/services/location_map/models/submition.dart';
+import 'package:collage_map_task/services/location_map/repo/map_repo.dart';
 import 'package:flutter/material.dart';
 
 import '../models/floor.dart';
@@ -22,65 +23,14 @@ class _FormPageState extends State<FormPage> {
   String floor = "";
   String location = "";
   String placeType = "";
-  List<Floor> map = [
-    Floor(
-      stands: ["Floor 1", "Floor 2"],
-      labs: ["A1", "A2 & A3", "A4"],
-      offices: [
-        "Benefits Offices",
-        "Trea Office",
-        "Graduates Affairs",
-        "Students Affairs",
-        "Graduate Studies Office",
-        "IT Office",
-      ],
-      number: 1,
-    ),
-    Floor(
-      stands: ["Floor 3"],
-      labs: [
-        "B1 & B2",
-        "B3",
-        "B4",
-        "B5",
-      ],
-      offices: [
-        "Dean's office",
-        "Office of the Vice Dean for Community Service and the Environment",
-        "Office of the Vice Dean for Education and Student Affairs",
-        "Office of the Vice Dean for Graduate Studies",
-      ],
-      number: 2,
-    ),
-    Floor(
-      stands: ["Floor 4"],
-      labs: [
-        "C1 & C2",
-        "C3",
-        "C4",
-        "C5",
-        "C6 & C7",
-      ],
-      offices: [
-        "Seminar hall",
-        "Office of the Head of the Information Technology Department",
-        "Office of the Head of the Computer Science Department",
-      ],
-      number: 3,
-    ),
-    Floor(
-        stands: [],
-        labs: ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"],
-        offices: [],
-        number: 4),
-  ];
-  List<String> placeTypes = ["Stands", "Labs", "Offices"];
-  int getFloor(String data) {
-    for (int x = 0; x < map.length; x++) {
-      if (map[x].containes(data)) return map[x].number;
-    }
-    return 0;
+  _clear() {
+    floor = "";
+    location = "";
+    placeType = "";
   }
+
+  
+  
 
   bool get _validate => floor.isNotEmpty || location.isNotEmpty;
 
@@ -108,7 +58,7 @@ class _FormPageState extends State<FormPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: FormSelector(
-                            label: "The Floor",
+                            label: getLang("Your Current Floor"),
                             value: floor,
                             onTap: (value) => setState(() => floor = value),
                             data: List.generate(
@@ -118,45 +68,45 @@ class _FormPageState extends State<FormPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: FormSelector(
-                            label: "The location you want to go",
+                            label: "${getLang("Select")} ${getLang("Category")}",
                             value: placeType,
                             onTap: (value) => setState(() => placeType = value),
-                            data: placeTypes,
+                            data: MapRepo.placeTypes,
                           ),
                         ),
                         if (placeType == "Stands")
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: FormSelector(
-                              label: "The location you want to go",
+                              label: "${getLang("Select")} ${getLang("Stand")}",
                               value: location,
                               onTap: (value) =>
                                   setState(() => location = value),
-                              data: Extractor.extract(map, LocationType.stands),
+                              data: Extractor.extract(MapRepo.floors, LocationType.stands),
                             ),
                           ),
                         if (placeType == "Labs")
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: FormSelector(
-                              label: "The location you want to go",
+                              label: "${getLang("Select")} ${getLang("Lab")}",
                               value: location,
                               onTap: (value) =>
                                   setState(() => location = value),
-                              data: Extractor.extract(map, LocationType.labs),
+                              data: Extractor.extract(MapRepo.floors, LocationType.labs),
                             ),
                           ),
                         if (placeType == "Offices")
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: FormSelector(
-                              label: "The location you want to go",
+                              label: "${getLang("Select")} ${getLang("Office")}",
                               value: location,
                               onTap: (value) => setState(() {
                                 location = value;
                               }),
                               data:
-                                  Extractor.extract(map, LocationType.offices),
+                                  Extractor.extract(MapRepo.floors, LocationType.offices),
                             ),
                           ),
                       ],
@@ -164,19 +114,23 @@ class _FormPageState extends State<FormPage> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     if (_validate) {
                       SubmitionModel model = SubmitionModel(
-                        location: location,
-                        floor: getFloor(location),
+                        location: getLang(location),
+                        floor: MapRepo.getFloor(location),
+                        image: location,
                         currentFloor: int.parse(floor.substring(6)),
                       );
-                      CustomNavigator.push(Routes.mapResult,arguments: model);
+                      _clear();
+                      await CustomNavigator.push(Routes.mapResult,
+                          arguments: model);
+                      setState(() {});
                     } else {
                       showSnackBar(
                         notification: AppNotification(
                             radius: 5,
-                            message: "Please fill the data",
+                            message: getLang("Please fill the data"),
                             iconName: "warning",
                             backgroundColor: AppColors.warning),
                       );
