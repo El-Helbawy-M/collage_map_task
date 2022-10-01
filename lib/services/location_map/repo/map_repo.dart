@@ -9,7 +9,7 @@ abstract class MapRepo {
         "Benefits Offices",
         "Graduates Affairs",
         "Students Affairs",
-        "Graduate Studies Office",
+        "Graduates Studies Office",
         "IT Office",
       ],
       number: 1,
@@ -40,7 +40,7 @@ abstract class MapRepo {
         "C6 & C7",
       ],
       offices: [
-        "Seminar hall",
+        "seminar hall",
         "Office of the Head of the Information Technology Department",
         "Office of the Head of the Computer Science Department",
       ],
@@ -48,7 +48,7 @@ abstract class MapRepo {
     ),
     Floor(
         stands: [],
-        labs: ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"],
+        labs: ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8","hall1","hall2","hall3","hall4","hall5","hall6"],
         offices: [],
         number: 4),
   ];

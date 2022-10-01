@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           // iconTheme: IconThemeData(
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        locale: const Locale("en"),
+        locale: const Locale("ar"),
 
         // this is a callback, it's executed when the user open the app or change the localaization of the mobile
         // what is its jop?

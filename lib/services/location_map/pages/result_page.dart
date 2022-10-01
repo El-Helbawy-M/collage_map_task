@@ -39,10 +39,11 @@ class ResultPage extends StatelessWidget {
                 model.location,
                 style: AppTextStyles.w800.copyWith(fontSize: 25,color: AppColors.mainColor),
               ),
+              const SizedBox(height: 16),
               Text(
                 getLang("Description"),
                 style: AppTextStyles.w800.copyWith(
-                  fontSize: 20,
+                  fontSize: 18,
                   color: AppColors.hint,
                   fontFamily: "txt",
                 ),
@@ -50,7 +51,7 @@ class ResultPage extends StatelessWidget {
               Text(
                 model.description,
                 style: AppTextStyles.w700.copyWith(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Colors.black,
                 ),
               ),

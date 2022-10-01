@@ -27,10 +27,8 @@ class _FormPageState extends State<FormPage> {
     floor = "";
     location = "";
     placeType = "";
+    setState(() {});
   }
-
-  
-  
 
   bool get _validate => floor.isNotEmpty || location.isNotEmpty;
 
@@ -68,7 +66,8 @@ class _FormPageState extends State<FormPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: FormSelector(
-                            label: "${getLang("Select")} ${getLang("Category")}",
+                            label:
+                                "${getLang("Select")} ${getLang("Category")}",
                             value: placeType,
                             onTap: (value) => setState(() => placeType = value),
                             data: MapRepo.placeTypes,
@@ -82,7 +81,8 @@ class _FormPageState extends State<FormPage> {
                               value: location,
                               onTap: (value) =>
                                   setState(() => location = value),
-                              data: Extractor.extract(MapRepo.floors, LocationType.stands),
+                              data: Extractor.extract(
+                                  MapRepo.floors, LocationType.stands),
                             ),
                           ),
                         if (placeType == "Labs")
@@ -93,20 +93,22 @@ class _FormPageState extends State<FormPage> {
                               value: location,
                               onTap: (value) =>
                                   setState(() => location = value),
-                              data: Extractor.extract(MapRepo.floors, LocationType.labs),
+                              data: Extractor.extract(
+                                  MapRepo.floors, LocationType.labs),
                             ),
                           ),
                         if (placeType == "Offices")
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: FormSelector(
-                              label: "${getLang("Select")} ${getLang("Office")}",
+                              label:
+                                  "${getLang("Select")} ${getLang("Office")}",
                               value: location,
                               onTap: (value) => setState(() {
                                 location = value;
                               }),
-                              data:
-                                  Extractor.extract(MapRepo.floors, LocationType.offices),
+                              data: Extractor.extract(
+                                  MapRepo.floors, LocationType.offices),
                             ),
                           ),
                       ],
@@ -125,8 +127,7 @@ class _FormPageState extends State<FormPage> {
                       _clear();
                       await CustomNavigator.push(Routes.mapResult,
                           arguments: model);
-                      setState(() {});
-                    } else {
+                    } else if (!_validate) {
                       showSnackBar(
                         notification: AppNotification(
                             radius: 5,
@@ -134,6 +135,8 @@ class _FormPageState extends State<FormPage> {
                             iconName: "warning",
                             backgroundColor: AppColors.warning),
                       );
+                    } else {
+                      print('error');
                     }
                   },
                   child: Container(
